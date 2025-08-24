@@ -42,20 +42,12 @@ public class BookController {
         return book;
     }
 
-    //
 
-    @PutMapping("")
-    @ResponseBody
-    public void updateBook(@RequestBody Book book) {
-        bookService.update(book);
+    @PutMapping("/{id}")
+    public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
+        bookService.update(id, book);
+        return book;
     }
-
-
-//    @PutMapping("/{id}")
-//    public Book updateBook(@PathVariable Long id, @RequestBody Book book) {
-//        bookService.update(id, book);
-//        return book;
-//    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

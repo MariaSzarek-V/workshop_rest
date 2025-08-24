@@ -46,29 +46,18 @@ public class MockBookService implements BookService {
         books.removeIf(b -> b.getId().equals(id));
     }
 
-    //
 
-
-    public void update(Book book) {
-        if (this.get(book.getId()).isPresent()) {
-            int indexOf = books.indexOf(this.get(book.getId()).get());
-            books.set(indexOf, book);
-        }
+    public void update(Long id, Book book){
+        books.stream()
+                .filter(b -> b.getId().equals(id)) // znajdź po ID
+                .findFirst()
+                .ifPresent(b -> {
+                    b.setTitle(book.getTitle());
+                    b.setAuthor(book.getAuthor());
+                    b.setIsbn(book.getIsbn());
+                    b.setPublisher(book.getPublisher());
+                    b.setType(book.getType());
+                });
     }
-
-
-
-//    public void update(Long id, Book book){
-//        books.stream()
-//                .filter(b -> b.getId().equals(id)) // znajdź po ID
-//                .findFirst()
-//                .ifPresent(b -> {
-//                    b.setTitle(book.getTitle());
-//                    b.setAuthor(book.getAuthor());
-//                    b.setIsbn(book.getIsbn());
-//                    b.setPublisher(book.getPublisher());
-//                    b.setType(book.getType());
-//                });
-//    }
 
 }
